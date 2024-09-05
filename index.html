@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte del Cliente</title>
+    <title>Reporte de Cliente</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -32,9 +32,11 @@
             <section class="visited-rooms">
                 <h3>Recintos más visitados</h3>
                 <ul id="visited-rooms-list">
-                    <li><span class="icon">🛋️</span> Sala <span>0 min</span></li>
-                    <li><span class="icon">🛏️</span> Dormitorio principal <span>0 min</span></li>
-                    <li><span class="icon">🍳</span> Cocina <span>0 min</span></li>
+                    <li><span class="icon">🛋️</span> Sala <span id="time-sala">0 min</span></li>
+                    <li><span class="icon">🛏️</span> Dormitorio <span id="time-dormitorio">0 min</span></li>
+                    <li><span class="icon">🍳</span> Cocina <span id="time-cocina">0 min</span></li>
+                    <li><span class="icon">🚿</span> Baño <span id="time-bano">0 min</span></li>
+                    <li><span class="icon">🌅</span> Terraza <span id="time-terraza">0 min</span></li>
                 </ul>
             </section>
 
@@ -46,15 +48,23 @@
             <section class="measurements">
                 <h3>Mediciones</h3>
                 <div class="progress-bar">
-                    <label>Mediciones cocina</label>
+                    <label>Mediciones Cocina</label>
                     <div class="bar"><span id="measure-kitchen" style="width: 0%"></span></div>
                 </div>
                 <div class="progress-bar">
-                    <label>Mediciones sala</label>
+                    <label>Mediciones Sala</label>
                     <div class="bar"><span id="measure-living" style="width: 0%"></span></div>
                 </div>
                 <div class="progress-bar">
-                    <label>Mediciones terraza</label>
+                    <label>Mediciones Dormitorio</label>
+                    <div class="bar"><span id="measure-dormitorio" style="width: 0%"></span></div>
+                </div>
+                <div class="progress-bar">
+                    <label>Mediciones Baño</label>
+                    <div class="bar"><span id="measure-bano" style="width: 0%"></span></div>
+                </div>
+                <div class="progress-bar">
+                    <label>Mediciones Terraza</label>
                     <div class="bar"><span id="measure-terrace" style="width: 0%"></span></div>
                 </div>
             </section>
@@ -62,15 +72,23 @@
             <section class="interactions">
                 <h3>Interacciones</h3>
                 <div class="progress-bar">
-                    <label>Interacciones cocina</label>
+                    <label>Interacciones Cocina</label>
                     <div class="bar"><span id="interactions-kitchen" style="width: 0%"></span></div>
                 </div>
                 <div class="progress-bar">
-                    <label>Interacciones sala</label>
+                    <label>Interacciones Sala</label>
                     <div class="bar"><span id="interactions-living" style="width: 0%"></span></div>
                 </div>
                 <div class="progress-bar">
-                    <label>Interacciones terraza</label>
+                    <label>Interacciones Dormitorio</label>
+                    <div class="bar"><span id="interactions-dormitorio" style="width: 0%"></span></div>
+                </div>
+                <div class="progress-bar">
+                    <label>Interacciones Baño</label>
+                    <div class="bar"><span id="interactions-bano" style="width: 0%"></span></div>
+                </div>
+                <div class="progress-bar">
+                    <label>Interacciones Terraza</label>
                     <div class="bar"><span id="interactions-terrace" style="width: 0%"></span></div>
                 </div>
             </section>
@@ -127,22 +145,33 @@
                 const roomName = room.M.nombre.S.toLowerCase();
                 const measurements = room.M.mediciones.N;
                 const interactions = room.M.interacciones.N;
+                const timeSpent = room.M.tiempo.N;
 
-                // Update measurements and interactions by room
+                // Update measurements, interactions, and time by room
                 if (roomName === 'cocina') {
                     document.getElementById('measure-kitchen').style.width = `${measurements * 10}%`;
                     document.getElementById('interactions-kitchen').style.width = `${interactions * 10}%`;
+                    document.getElementById('time-cocina').innerText = `${Math.floor(timeSpent)} min`;
                 } else if (roomName === 'sala') {
                     document.getElementById('measure-living').style.width = `${measurements * 10}%`;
                     document.getElementById('interactions-living').style.width = `${interactions * 10}%`;
+                    document.getElementById('time-sala').innerText = `${Math.floor(timeSpent)} min`;
+                } else if (roomName === 'dormitorio') {
+                    document.getElementById('measure-dormitorio').style.width = `${measurements * 10}%`;
+                    document.getElementById('interactions-dormitorio').style.width = `${interactions * 10}%`;
+                    document.getElementById('time-dormitorio').innerText = `${Math.floor(timeSpent)} min`;
+                } else if (roomName === 'baño') {
+                    document.getElementById('measure-bano').style.width = `${measurements * 10}%`;
+                    document.getElementById('interactions-bano').style.width = `${interactions * 10}%`;
+                    document.getElementById('time-bano').innerText = `${Math.floor(timeSpent)} min`;
                 } else if (roomName === 'terraza') {
                     document.getElementById('measure-terrace').style.width = `${measurements * 10}%`;
                     document.getElementById('interactions-terrace').style.width = `${interactions * 10}%`;
+                    document.getElementById('time-terraza').innerText = `${Math.floor(timeSpent)} min`;
                 }
             });
         }
     </script>
 </body>
 </html>
-
 
